@@ -8,5 +8,19 @@
   },
   "peerDependencies": {
     "typescript": "^5"
+  },
+  "dependencies": {
+    "@ai-sdk/google": "^3.0.26",
+    "ai": "^6.0.82",
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^17.2.4",
+    "express": "^5.2.1",
+    "helmet": "^8.1.0",
+    "inngest": "^3.52.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.2.1",
+    "morgan": "^1.10.1"
   }
 }
