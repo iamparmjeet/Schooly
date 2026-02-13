@@ -7,7 +7,6 @@ const onError: ErrorRequestHandler = (err, _req, res, _next) => {
     typeof err.status === "number" && err.status !== StatusCode.OK
       ? err.status
       : StatusCode.INTERNAL_SERVER_ERROR;
-  // eslint-disable-next-line node/prefer-global/process
   const environment = env.NODE_ENV || env.NODE_ENV;
   res.status(statusCode).json({
     message: err.message,
