@@ -1,24 +1,18 @@
-import type { ErrorHandler } from "hono";
-import type { ContentfulStatusCode } from "hono/utils/http-status";
+import type { ErrorRequestHandler } from "express";
 import { StatusCode } from "@/utils";
+import env from "@/env";
 
-const onError: ErrorHandler = (err, c) => {
-  const currentStatus =
-    "status" in err ? err.status : c.newResponse(null).status;
+const onError: ErrorRequestHandler = (err, _req, res, _next) => {
   const statusCode =
-    currentStatus !== StatusCode.OK
-      ? (currentStatus as ContentfulStatusCode)
+    typeof err.status === "number" && err.status !== StatusCode.OK
+      ? err.status
       : StatusCode.INTERNAL_SERVER_ERROR;
   // eslint-disable-next-line node/prefer-global/process
-  const env = c.env?.NODE_ENV || process.env?.NODE_ENV;
-  return c.json(
-    {
-      message: err.message,
-
-      stack: env === "production" ? undefined : err.stack,
-    },
-    statusCode
-  );
+  const environment = env.NODE_ENV || env.NODE_ENV;
+  res.status(statusCode).json({
+    message: err.message,
+    stack: environment === "production" ? undefined : err.stack,
+  });
 };
 
 export default onError;

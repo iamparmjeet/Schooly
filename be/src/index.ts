@@ -1,6 +1,5 @@
 import express from "express";
 import type { Application, Request, Response } from "express";
-import morgan from "morgan";
 import env from "./env";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
@@ -16,7 +15,6 @@ app.use(express.urlencoded({ extended: true })); // Middle to parse
 app.use(cookieParser());
 
 if (env.NODE_ENV === "development") {
-  // app.use(morgan("combined"));
   app.use(pinoLogger());
 }
 
@@ -27,7 +25,7 @@ app.use(
   }),
 );
 
-app.get("/api/health", (req: Request, res: Response) => {
+app.get("/", (req: Request, res: Response) => {
   res
     .status(StatusCode.OK)
     .json({ status: StatusPhrase.OK, message: "Server is healthy" });

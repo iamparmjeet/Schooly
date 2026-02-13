@@ -1,4 +1,3 @@
-// middleware/pinoLogger.ts
 import { randomUUID } from "crypto";
 import pino from "pino";
 import pinoHttp from "pino-http";
